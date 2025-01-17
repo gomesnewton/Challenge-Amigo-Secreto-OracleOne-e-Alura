@@ -11,9 +11,9 @@ function sortearAmigo() {
     }
 }
 
-function exibirListAmigos() {
+function exibirListaAmigos() {
     document.getElementById("listaAmigos").innerHTML = null;
-    amigos.forEach((amigo) => (document.getElementById("listaAmigos").innerHTML += `<li>${amigo}</li>`));
+    amigos.forEach(amigo => document.getElementById("listaAmigos").innerHTML += `<li>${amigo}</li>`);
 }
 
 function adicionarAmigo() {
@@ -23,10 +23,10 @@ function adicionarAmigo() {
     } else {
         amigos.push(nomeAmigo);
         document.getElementById("amigo").value = null;
-        exibirListAmigos();
+        exibirListaAmigos();
     }
 }
 
 function validarNomeAmigo(nome) {
-    return nome.match(/^([a-zA-ZÀ-ÿ ]{1,})\b$/);
+    return nome.match(/^([a-zA-ZÀ-ÿ ]{1,50})\b$/);
 }
