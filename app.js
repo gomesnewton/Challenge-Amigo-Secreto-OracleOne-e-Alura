@@ -1,19 +1,31 @@
-//O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
-let amigos = [];
+//O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. 
+// Aqui você deverá desenvolver a lógica para resolver o problema.
+
+var amigos = [];
+
+const re = /^([a-zA-ZÀ-ÿ ]{1,50})\b$/;
+const inputAmigo = document.getElementById("amigo");
+const resultado = document.getElementById("resultado");
+const listaAmigos = document.getElementById("listaAmigos");
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') 
+        adicionarAmigo()
+    });
 
 function sortearAmigo() {
     if (!amigos.length) {
-        alert("A lista está vazia.");
+        alert("Sua lista de amigos está vazia.");
     } else {
         let indice = Math.floor(Math.random() * amigos.length);
-        document.getElementById("resultado").innerHTML = `O amigo sorteado é: ${amigos[indice]}`;
+        resultado.innerHTML = `${amigos[indice]}\n foi a pessoa sorteada!`;
         limparInformacoesTela();
     }
 }
 
 function adicionarAmigo() {
-    let nomeAmigo = document.getElementById("amigo").value.trim();
-    if (!validarNomeAmigo(nomeAmigo)) {
+    let nomeAmigo = inputAmigo.value.trim();
+    if (!nomeAmigo.match(re)) {
         alert("Por favor, insira um nome válido.");
     } else {
         amigos.push(nomeAmigo);
@@ -23,14 +35,11 @@ function adicionarAmigo() {
 }
 
 function exibirListaAmigos() {
-    amigos.forEach((amigo) => (document.getElementById("listaAmigos").innerHTML += `<li>${amigo}</li>`));
+    amigos.forEach((amigo) => (listaAmigos.innerHTML += `<li>${amigo}</li>`));
 }
 
 function limparInformacoesTela() {
-    document.getElementById("amigo").value = '';
-    document.getElementById("listaAmigos").innerHTML = '';
+    inputAmigo.value = '';
+    listaAmigos.innerHTML = '';
 }
 
-function validarNomeAmigo(nome) {
-    return nome.match(/^([a-zA-ZÀ-ÿ ]{1,50})\b$/);
-}
