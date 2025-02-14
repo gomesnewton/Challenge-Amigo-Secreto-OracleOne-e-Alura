@@ -2,44 +2,40 @@
 // Aqui você deverá desenvolver a lógica para resolver o problema.
 
 var amigos = [];
-
 const re = /^([a-zA-ZÀ-ÿ ]{1,50})\b$/;
-const inputAmigo = document.getElementById("amigo");
-const resultado = document.getElementById("resultado");
-const listaAmigos = document.getElementById("listaAmigos");
+const element = (e) => document.getElementById(e);
+const random = () => Math.floor(Math.random() * amigos.length);
+
+function sortearAmigo() {
+    if (amigos.length) {
+        element("resultado").innerHTML = `${amigos[random()]}, foi a pessoa sorteada!`;
+        limparInformacoesTela();
+    } else {
+        alert("Sua lista de amigos está vazia.");
+    }
+}
+
+function adicionarAmigo() {
+    let input = element("amigo").value.trim();
+    if (input.match(re)) {
+        amigos.push(input);
+        limparInformacoesTela();
+        exibirListaAmigos();
+    } else {
+        alert("Por favor, insira um nome válido.");
+    }
+}
+
+function exibirListaAmigos() {
+    amigos.forEach((amigo) => element("listaAmigos").innerHTML += `<li>${amigo}</li>`);
+}
+
+function limparInformacoesTela() {
+    element("amigo").value = '';
+    element("listaAmigos").innerHTML = '';
+}
 
 document.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') 
         adicionarAmigo()
     });
-
-function sortearAmigo() {
-    if (!amigos.length) {
-        alert("Sua lista de amigos está vazia.");
-    } else {
-        let indice = Math.floor(Math.random() * amigos.length);
-        resultado.innerHTML = `${amigos[indice]}\n foi a pessoa sorteada!`;
-        limparInformacoesTela();
-    }
-}
-
-function adicionarAmigo() {
-    let nomeAmigo = inputAmigo.value.trim();
-    if (!nomeAmigo.match(re)) {
-        alert("Por favor, insira um nome válido.");
-    } else {
-        amigos.push(nomeAmigo);
-        limparInformacoesTela();
-        exibirListaAmigos();
-    }
-}
-
-function exibirListaAmigos() {
-    amigos.forEach((amigo) => (listaAmigos.innerHTML += `<li>${amigo}</li>`));
-}
-
-function limparInformacoesTela() {
-    inputAmigo.value = '';
-    listaAmigos.innerHTML = '';
-}
-
