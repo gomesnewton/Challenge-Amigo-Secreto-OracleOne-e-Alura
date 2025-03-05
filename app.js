@@ -1,38 +1,29 @@
-//O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. 
-// Aqui você deverá desenvolver a lógica para resolver o problema.
-
 var amigos = [];
 const re = /^([a-zA-ZÀ-ÿ ]{1,50})\b$/;
-const element = (e) => document.getElementById(e);
-const random = () => Math.floor(Math.random() * amigos.length);
+const getElementById = (id) => document.getElementById(id);
+const sorteado = () => amigos[Math.floor(Math.random() * amigos.length)];
 
 function sortearAmigo() {
-    if (amigos.length) {
-        element("resultado").innerHTML = `${amigos[random()]}, foi a pessoa sorteada!`;
-        limparInformacoesTela();
-    } else {
-        alert("Sua lista de amigos está vazia.");
-    }
+    if (!amigos.length) return alert("Sua lista de amigos está vazia.");
+    getElementById("resultado").innerHTML = `${sorteado()}, foi sorteado(a)!`;
+    limparInformacoesTela();
 }
 
 function adicionarAmigo() {
-    let input = element("amigo").value.trim();
-    if (input.match(re)) {
-        amigos.push(input);
-        limparInformacoesTela();
-        exibirListaAmigos();
-    } else {
-        alert("Por favor, insira um nome válido.");
-    }
+    let amigo = getElementById("amigo").value.trim();
+    if (!amigo.match(re)) return alert("Por favor, insira um nome válido.");
+    amigos.push(amigo);
+    limparInformacoesTela();
+    exibirListaAmigos();
 }
 
 function exibirListaAmigos() {
-    amigos.forEach((amigo) => element("listaAmigos").innerHTML += `<li>${amigo}</li>`);
+    amigos.forEach((amigo) => getElementById("listaAmigos").innerHTML += `<li>${amigo}</li>`);
 }
 
 function limparInformacoesTela() {
-    element("amigo").value = '';
-    element("listaAmigos").innerHTML = '';
+    getElementById("amigo").value = '';
+    getElementById("listaAmigos").innerHTML = '';
 }
 
 document.addEventListener('keydown', (event) => {
